@@ -15,6 +15,7 @@ import { CartProvider, useCart } from '@/store/cart'
 import { CatalogueProvider } from '@/store/catalogue'
 import { convex, isConvexConfigured } from '@/lib/convex'
 import { ConvexAuthProvider } from '@convex-dev/auth/react'
+import { WhatsAppButton } from '@/components/WhatsAppButton'
 
 // the dashboard is only ever needed at /admin — keep it out of the first load
 const AdminApp = lazy(() => import('@/admin/AdminApp'))
@@ -61,6 +62,7 @@ function Store() {
       />
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} onNotice={setNotice} />
       <Notice message={notice} onDismiss={() => setNotice(null)} />
+      <WhatsAppButton />
     </>
   )
 }

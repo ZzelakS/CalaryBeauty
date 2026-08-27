@@ -79,6 +79,17 @@ export function Hero() {
         }}
       />
 
+      {/* phones only: the copy fills the width here, so it needs ground under it.
+          Tune h-[70%] first, then the 0.94, if it covers more branch than you want. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] md:hidden"
+        style={{
+          background:
+            'linear-gradient(to top, rgba(251,246,239,0.94) 30%, rgba(251,246,239,0.7) 60%, rgba(251,246,239,0) 100%)',
+        }}
+      />
+
       {/* survey readout — the intro's instrument panel */}
       <div
         className={`pointer-events-none absolute right-6 top-24 z-10 text-right transition-opacity duration-1000 ease-atelier md:right-10 ${
