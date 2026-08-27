@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --porcelain: #fbf6ef;
+    --linen: #f4eadc;
+    --sand: #eadcc6;
+    --ink: #2c1f16;
+    --mocha: #6b5340;
+    --gold: #c08a34;
+    --honey: #e8b45c;
+    --signal: #a9701f;
+    --noir: #1a1511;
+    --hairline: rgba(44, 31, 22, 0.14);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    background: var(--porcelain);
+  }
+
+  body {
+    margin: 0;
+    background: var(--porcelain);
+    color: var(--ink);
+    font-family: 'Karla Variable', Karla, system-ui, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body.is-locked {
+    overflow: hidden;
+  }
+
+  ::selection {
+    background: var(--honey);
+    color: var(--noir);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--signal);
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--porcelain);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(44, 31, 22, 0.2);
+    border-radius: 99px;
+  }
+}
+
+@layer components {
+  /* ── Type ─────────────────────────────────────────────── */
+  .hud {
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.625rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+
+  .display {
+    font-family: 'Bodoni Moda Variable', 'Bodoni Moda', Didot, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+  }
+
+  /* ── Nav link with a gold underline ───────────────────── */
+  .nav-link {
+    position: relative;
+    padding-block: 0.35rem;
+    color: rgba(44, 31, 22, 0.68);
+    transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-link:hover,
+  .nav-link[data-active='true'] {
+    color: var(--ink);
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, var(--gold) 18%, var(--gold) 82%, transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link[data-active='true']::after {
+    transform: scaleX(1);
+  }
+
+  /* ── Scan overlay used while card imagery resolves ────── */
+  .scan-plate {
+    background-image: linear-gradient(
+      165deg,
+      rgba(234, 220, 198, 1) 0%,
+      rgba(244, 234, 220, 1) 55%,
+      rgba(251, 246, 239, 1) 100%
+    );
+  }
+
+  .scan-grid {
+    background-image:
+      linear-gradient(to right, rgba(169, 112, 31, 0.18) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(169, 112, 31, 0.18) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .scan-bar {
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(169, 112, 31, 0.08) 35%,
+      rgba(169, 112, 31, 0.55) 50%,
+      rgba(169, 112, 31, 0.08) 65%,
+      transparent
+    );
+  }
+
+  .corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: var(--signal);
+    opacity: 0.8;
+  }
+
+  /* ── Fallback for the shader button where no hover exists ─
+     Touch devices never run the WebGL pass, so the chip keeps a fixed
+     sheen instead — the same gold, just not moving. */
+  @media (hover: none) {
+    .btn-fallback {
+      background-image: linear-gradient(
+        110deg,
+        rgba(192, 138, 52, 0) 12%,
+        rgba(232, 180, 92, 0.3) 48%,
+        rgba(192, 138, 52, 0) 88%
+      );
+    }
+    .btn-fallback:active {
+      background-image: linear-gradient(
+        110deg,
+        rgba(232, 180, 92, 0.15) 12%,
+        rgba(255, 226, 170, 0.55) 48%,
+        rgba(232, 180, 92, 0.15) 88%
+      );
+    }
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(7px);
+    transition:
+      opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal[data-shown='true'] {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
