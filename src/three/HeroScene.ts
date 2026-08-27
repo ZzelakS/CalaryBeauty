@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { buildBranch } from './branch'
 import { Butterfly } from './butterfly'
+import { Drifters } from './drifters'
 import { DustField, PointerParticles } from './particles'
 import {
   surfaceFragment,
@@ -41,6 +42,7 @@ export class HeroScene {
   private wireMaterial: THREE.ShaderMaterial
   private surfaceMaterial: THREE.ShaderMaterial
   private butterfly: Butterfly
+  private drifters: Drifters
   private pointerParticles: PointerParticles
   private dust: DustField
 
@@ -128,6 +130,10 @@ export class HeroScene {
     this.butterfly = new Butterfly(branch.tips, this.reducedMotion)
     this.branchGroup.add(this.butterfly.group)
 
+    // tiny ambient ones — no perching, no interaction, every viewport
+    this.drifters = new Drifters(3, this.reducedMotion)
+    this.branchGroup.add(this.drifters.group)
+
     this.pointerParticles = new PointerParticles(pixelRatio)
     this.branchGroup.add(this.pointerParticles.points)
 
@@ -177,6 +183,9 @@ export class HeroScene {
     this.cameraBase.set(narrow ? -0.1 : 0.2, narrow ? 0.5 : 0.05, 7.2 * pullback)
     this.lookAt.set(-0.15, narrow ? 0.9 : 0.35, 0)
     this.camera.updateProjectionMatrix()
+
+    // runs once during construction, before the field is assigned
+    this.drifters?.layout(aspect)
   }
 
   private handlePointerMove = (event: PointerEvent): void => {
@@ -296,6 +305,7 @@ export class HeroScene {
     this.updatePointer()
     this.updateParallax(delta)
     this.butterfly.update(delta, this.elapsed)
+    this.drifters.update(delta, this.elapsed, this.surfaceMaterial.uniforms.uReveal.value)
     this.pointerParticles.update(delta)
     this.dust.update(this.elapsed)
 
@@ -315,6 +325,7 @@ export class HeroScene {
     this.wireMaterial.dispose()
     this.surfaceMaterial.dispose()
     this.butterfly.dispose()
+    this.drifters.dispose()
     this.pointerParticles.dispose()
     this.dust.dispose()
     this.renderer.dispose()
