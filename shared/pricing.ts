@@ -1,0 +1,1 @@
+export const PRODUCT_SHIPPING_FEE = 10
