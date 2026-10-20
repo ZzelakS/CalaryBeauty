@@ -42,7 +42,7 @@ export function QuickView({ product, open, onClose, onAdd }: QuickViewProps) {
             >
               {product.inStock===false ? 'Out of stock':'Add to bag'}
             </ShaderButton>
-            <p className="hud text-center text-mocha/80">Review policies before purchase</p>
+            {/* <p className="hud text-center text-mocha/80">Review policies before purchase</p> */}
           </div>
         ) : null
       }
