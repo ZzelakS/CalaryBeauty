@@ -1,0 +1,8 @@
+import { useState } from 'react'
+import { Link,useSearchParams } from 'react-router-dom'
+import { newsletterRequest } from '@/lib/newsletter'
+export default function NewsletterConfirm(){
+ const [params]=useSearchParams(),[busy,setBusy]=useState(false),[done,setDone]=useState(false),[message,setMessage]=useState('')
+ const token=params.get('token') || ''
+ return <main className="flex min-h-[100svh] items-center justify-center bg-linen px-6 py-16"><div className="w-full max-w-xl border border-ink/15 bg-porcelain p-8 md:p-12"><Link to="/" className="hud text-gold">Calary Beauty</Link><h1 className="display mt-7 text-4xl">{done ? 'You’re on the list.':'A lovely thing to look forward to.'}</h1><p className="mt-5 leading-7 text-mocha">{done ? 'Thank you for joining us. We’ll be in touch with collection news and studio offers.':'Confirm that you’d like to receive news and offers from Calary Beauty.'}</p>{!done && <button className="hud mt-7 w-full bg-noir px-6 py-4 text-porcelain disabled:opacity-50" disabled={busy || !token} onClick={async()=>{setBusy(true);try{setMessage(await newsletterRequest('confirm',{token}));setDone(true);window.history.replaceState({},'',window.location.pathname)}catch(error){setMessage(error instanceof Error ? error.message:'Please try again.')}finally{setBusy(false)}}}>{busy ? 'Confirming…':'Confirm my subscription'}</button>}{(!token || message) && <p role="status" className="mt-5 text-sm leading-7">{message || 'Your confirmation link is incomplete. Please request another from the contact page.'}</p>}<Link to="/contact" className="mt-6 inline-block text-sm underline underline-offset-4">Back to Calary Beauty</Link></div></main>
+}

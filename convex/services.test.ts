@@ -1,0 +1,23 @@
+/// <reference types="vite/client" />
+import { expect,test,vi,afterEach } from 'vitest'
+import { convexTest } from 'convex-test'
+import schema from './schema'
+import {services as starters} from '../shared/services'
+import { api } from './_generated/api'
+const modules=import.meta.glob('./**/*.ts')
+afterEach(()=>vi.unstubAllEnvs())
+async function admin(){const t=convexTest(schema,modules);const id=await t.run(ctx=>ctx.db.insert('users',{email:'admin@example.com'}));vi.stubEnv('ADMIN_EMAILS','admin@example.com');return {t,client:t.withIdentity({subject:`${id}|session`})}}
+const service={slug:'custom-twists',name:'Custom twists',category:'Twists',rows:'4 rows',image:'/twists.jpg',lengths:[{name:'Shoulder length',price:120}],active:true,order:99,creating:true}
+test('starter braids become editable persisted services and preserve all starters on first edit',async()=>{const {t,client}=await admin();const before=await client.query(api.services.listAll);expect(before.services).toHaveLength(starters.length);const starter=before.services[0];await client.mutation(api.services.save,{...service,slug:starter.id,name:'Updated knotless',category:starter.category,creating:false,lengths:[{name:'Waist length',price:500}]});const catalog=await t.query(api.services.listPublic);expect(catalog.services).toHaveLength(starters.length);const changed=catalog.services.find(s=>s.id===starter.id)!;expect(changed.name).toBe('Updated knotless');expect(changed.lengths[0].price).toBe(500)})
+test('hidden/deleted styles do not return through starter fallback',async()=>{const {t,client}=await admin();await client.mutation(api.services.save,{...service,active:false});expect((await t.query(api.services.listPublic)).services.some(s=>s.id===service.slug)).toBe(false);const all=await client.query(api.services.listAll);for(const s of all.services)await client.mutation(api.services.remove,{slug:s.id});expect((await t.query(api.services.listPublic)).services).toEqual([]);expect((await client.query(api.services.listAll)).services).toEqual([])})
+test('removed thigh options and duplicate lengths are rejected server-side',async()=>{const {client}=await admin();await expect(client.mutation(api.services.save,{...service,name:'Cornrows',lengths:[{name:'Thigh length',price:200}]})).rejects.toThrow('Thigh length');await expect(client.mutation(api.services.save,{...service,lengths:[{name:'Waist',price:100},{name:'waist',price:120}]})).rejects.toThrow('different name')})
+test('service and appointment management require approved admin access',async()=>{const t=convexTest(schema,modules);await expect(t.query(api.services.listAll)).rejects.toThrow('sign-in');await expect(t.mutation(api.services.save,service)).rejects.toThrow('sign-in');await expect(t.query(api.appointments.list,{paginationOpts:{numItems:25,cursor:null}})).rejects.toThrow('sign-in')})
+test('appointment amendments preserve original booking, payment status and deposit',async()=>{const {t,client}=await admin();const payload={customer:{billing:{firstName:'Jane',lastName:'Doe'},email:'jane@example.com',phone:'555'},booking:{serviceId:'small-knotless',length:'Waist length',extras:[],date:'2099-01-01',time:'14:30',notes:''},serviceTotal:400};const id=await t.run(ctx=>ctx.db.insert('paymentRecords',{requestId:'booking',kind:'booking',status:'paid',amount:50,payload:JSON.stringify(payload),updatedAt:Date.now()}));await client.mutation(api.appointments.update,{id,date:'2099-01-02',time:'15:00',status:'cancelled',notes:'Client requested cancellation.'});const record=await t.run(ctx=>ctx.db.get(id));expect(record?.status).toBe('paid');expect(record?.amount).toBe(50);expect(JSON.parse(record!.payload).booking.time).toBe('14:30');const list=await client.query(api.appointments.list,{paginationOpts:{numItems:25,cursor:null}});expect(list.page[0]).toMatchObject({date:'2099-01-02',time:'15:00',status:'cancelled'})})
+test('incomplete and malformed historical bookings remain visible without breaking the list',async()=>{
+ const {t,client}=await admin()
+ const payloads=['not-json','{}','null',JSON.stringify({booking:{serviceId:'old-style'}})]
+ for(const [i,payload] of payloads.entries())await t.run(ctx=>ctx.db.insert('paymentRecords',{requestId:`old-${i}`,kind:'booking',status:'paid',amount:50,payload,updatedAt:Date.now()}))
+ const list=await client.query(api.appointments.list,{paginationOpts:{numItems:25,cursor:null}})
+ expect(list.page).toHaveLength(4);expect(list.page.every(row=>row.needsReview)).toBe(true);expect(list.page.every(row=>typeof row.customer.billing.firstName==='string')).toBe(true)
+ const originals=await t.run(ctx=>ctx.db.query('paymentRecords').collect());expect(originals.map(record=>record.payload)).toEqual(payloads)
+})

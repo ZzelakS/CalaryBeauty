@@ -1,0 +1,156 @@
+13:56:22.943571 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/bin/git
+13:56:22.943829 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/bin
+13:56:22.945010 git.c:502               trace: built-in: git push --verbose --progress -u origin main
+13:56:22.946692 run-command.c:672       trace: run_command: GIT_DIR=.git git remote-https origin https://github.com/ZzelakS/CalaryBeauty.git
+13:56:22.946710 run-command.c:764       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git remote-https origin https://github.com/ZzelakS/CalaryBeauty.git
+13:56:22.951190 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/libexec/git-core/git
+13:56:22.951541 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/libexec/git-core
+13:56:22.951914 git.c:809               trace: exec: git-remote-https origin https://github.com/ZzelakS/CalaryBeauty.git
+13:56:22.951922 run-command.c:672       trace: run_command: git-remote-https origin https://github.com/ZzelakS/CalaryBeauty.git
+13:56:22.952556 run-command.c:764       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git-remote-https origin https://github.com/ZzelakS/CalaryBeauty.git
+13:56:22.956998 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/libexec/git-core/git-remote-https
+13:56:22.957451 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/libexec/git-core
+Pushing to https://github.com/ZzelakS/CalaryBeauty.git
+13:56:22.965253 http.c:912              == Info: Couldn't find host github.com in the .netrc file; using defaults
+13:56:23.080976 http.c:912              == Info: Host github.com:443 was resolved.
+13:56:23.080986 http.c:912              == Info: IPv6: (none)
+13:56:23.080988 http.c:912              == Info: IPv4: 140.82.121.4
+13:56:23.081010 http.c:912              == Info:   Trying 140.82.121.4:443...
+13:56:23.275648 http.c:912              == Info: Connected to github.com (140.82.121.4) port 443
+13:56:23.275815 http.c:912              == Info: ALPN: curl offers http/1.1
+13:56:23.276217 http.c:912              == Info: (304) (OUT), TLS handshake, Client hello (1):
+13:56:23.285592 http.c:912              == Info:  CAfile: /etc/ssl/cert.pem
+13:56:23.285615 http.c:912              == Info:  CApath: none
+13:56:23.452756 http.c:912              == Info: (304) (IN), TLS handshake, Server hello (2):
+13:56:23.453133 http.c:912              == Info: (304) (IN), TLS handshake, Unknown (8):
+13:56:23.455675 http.c:912              == Info: (304) (IN), TLS handshake, Certificate (11):
+13:56:23.464489 http.c:912              == Info: (304) (IN), TLS handshake, CERT verify (15):
+13:56:23.464819 http.c:912              == Info: (304) (IN), TLS handshake, Finished (20):
+13:56:23.465250 http.c:912              == Info: (304) (OUT), TLS handshake, Finished (20):
+13:56:23.465287 http.c:912              == Info: SSL connection using TLSv1.3 / AEAD-CHACHA20-POLY1305-SHA256 / [blank] / UNDEF
+13:56:23.465293 http.c:912              == Info: ALPN: server accepted http/1.1
+13:56:23.465303 http.c:912              == Info: Server certificate:
+13:56:23.465338 http.c:912              == Info:  subject: CN=github.com
+13:56:23.465346 http.c:912              == Info:  start date: Sep  1 00:00:00 2026 GMT
+13:56:23.465350 http.c:912              == Info:  expire date: Nov 29 23:59:59 2026 GMT
+13:56:23.465370 http.c:912              == Info:  subjectAltName: host "github.com" matched cert's "github.com"
+13:56:23.465390 http.c:912              == Info:  issuer: C=GB; O=Sectigo Limited; CN=Sectigo Public Server Authentication CA DV E36
+13:56:23.465398 http.c:912              == Info:  SSL certificate verify ok.
+13:56:23.465406 http.c:912              == Info: using HTTP/1.x
+13:56:23.465476 http.c:859              => Send header, 0000000182 bytes (0x000000b6)
+13:56:23.465486 http.c:871              => Send header: GET /ZzelakS/CalaryBeauty.git/info/refs?service=git-receive-pack HTTP/1.1
+13:56:23.465489 http.c:871              => Send header: Host: github.com
+13:56:23.465492 http.c:871              => Send header: User-Agent: git/2.54.0
+13:56:23.465506 http.c:871              => Send header: Accept: */*
+13:56:23.465508 http.c:871              => Send header: Accept-Encoding: deflate, gzip
+13:56:23.465511 http.c:871              => Send header: Pragma: no-cache
+13:56:23.465513 http.c:871              => Send header:
+13:56:23.465528 http.c:912              == Info: Request completely sent off
+13:56:23.823549 http.c:859              <= Recv header, 0000000027 bytes (0x0000001b)
+13:56:23.823568 http.c:871              <= Recv header: HTTP/1.1 401 Unauthorized
+13:56:23.823575 http.c:859              <= Recv header, 0000000026 bytes (0x0000001a)
+13:56:23.823587 http.c:871              <= Recv header: Server: GitHub-Babel/3.0
+13:56:23.823592 http.c:859              <= Recv header, 0000000054 bytes (0x00000036)
+13:56:23.823595 http.c:871              <= Recv header: Content-Security-Policy: default-src 'none'; sandbox
+13:56:23.823599 http.c:859              <= Recv header, 0000000041 bytes (0x00000029)
+13:56:23.823602 http.c:871              <= Recv header: Content-Type: text/plain; charset=UTF-8
+13:56:23.823607 http.c:859              <= Recv header, 0000000045 bytes (0x0000002d)
+13:56:23.823609 http.c:871              <= Recv header: Strict-Transport-Security: max-age=31536000
+13:56:23.823613 http.c:859              <= Recv header, 0000000040 bytes (0x00000028)
+13:56:23.823615 http.c:871              <= Recv header: www-authenticate: Basic realm="GitHub"
+13:56:23.823619 http.c:859              <= Recv header, 0000000020 bytes (0x00000014)
+13:56:23.823621 http.c:871              <= Recv header: Content-Length: 26
+13:56:23.823624 http.c:859              <= Recv header, 0000000037 bytes (0x00000025)
+13:56:23.823626 http.c:871              <= Recv header: Date: Tue, 27 Oct 2026 12:56:23 GMT
+13:56:23.823629 http.c:859              <= Recv header, 0000000023 bytes (0x00000017)
+13:56:23.823631 http.c:871              <= Recv header: X-Frame-Options: DENY
+13:56:23.823633 http.c:859              <= Recv header, 0000000059 bytes (0x0000003b)
+13:56:23.823635 http.c:871              <= Recv header: X-GitHub-Request-Id: 8E79:3FC81C:3FFF422:53BD180:6AE09F77
+13:56:23.823638 http.c:859              <= Recv header, 0000000027 bytes (0x0000001b)
+13:56:23.823640 http.c:871              <= Recv header: x-github-edge-region: fra
+13:56:23.823643 http.c:859              <= Recv header, 0000000002 bytes (0x00000002)
+13:56:23.823648 http.c:871              <= Recv header:
+13:56:23.823663 http.c:912              == Info: Connection #0 to host github.com left intact
+13:56:23.823709 run-command.c:672       trace: run_command: 'git credential-osxkeychain get'
+13:56:23.823718 run-command.c:764       trace: start_command: /bin/sh -c 'git credential-osxkeychain get' 'git credential-osxkeychain get'
+13:56:23.836536 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/libexec/git-core/git
+13:56:23.839119 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/libexec/git-core
+13:56:23.839984 git.c:809               trace: exec: git-credential-osxkeychain get
+13:56:23.839998 run-command.c:672       trace: run_command: git-credential-osxkeychain get
+13:56:23.841210 run-command.c:764       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git-credential-osxkeychain get
+13:56:23.867318 http.c:912              == Info: Found bundle for host: 0x74c6400570 [serially]
+13:56:23.867360 http.c:912              == Info: Re-using existing connection with host github.com
+13:56:23.867368 http.c:912              == Info: Server auth using Basic with user '96263142'
+13:56:23.867475 http.c:859              => Send header, 0000000273 bytes (0x00000111)
+13:56:23.867484 http.c:871              => Send header: GET /ZzelakS/CalaryBeauty.git/info/refs?service=git-receive-pack HTTP/1.1
+13:56:23.867485 http.c:871              => Send header: Host: github.com
+13:56:23.867486 http.c:871              => Send header: Authorization: Basic <redacted>
+13:56:23.867487 http.c:871              => Send header: User-Agent: git/2.54.0
+13:56:23.867488 http.c:871              => Send header: Accept: */*
+13:56:23.867488 http.c:871              => Send header: Accept-Encoding: deflate, gzip
+13:56:23.867489 http.c:871              => Send header: Pragma: no-cache
+13:56:23.867490 http.c:871              => Send header:
+13:56:23.867495 http.c:912              == Info: Request completely sent off
+13:56:24.397267 http.c:859              <= Recv header, 0000000017 bytes (0x00000011)
+13:56:24.397321 http.c:871              <= Recv header: HTTP/1.1 200 OK
+13:56:24.397334 http.c:859              <= Recv header, 0000000026 bytes (0x0000001a)
+13:56:24.397336 http.c:871              <= Recv header: Server: GitHub-Babel/3.0
+13:56:24.397345 http.c:859              <= Recv header, 0000000060 bytes (0x0000003c)
+13:56:24.397347 http.c:871              <= Recv header: Content-Type: application/x-git-receive-pack-advertisement
+13:56:24.397351 http.c:859              <= Recv header, 0000000054 bytes (0x00000036)
+13:56:24.397356 http.c:871              <= Recv header: Content-Security-Policy: default-src 'none'; sandbox
+13:56:24.397360 http.c:859              <= Recv header, 0000000040 bytes (0x00000028)
+13:56:24.397363 http.c:871              <= Recv header: expires: Fri, 01 Jan 1980 00:00:00 GMT
+13:56:24.397367 http.c:859              <= Recv header, 0000000018 bytes (0x00000012)
+13:56:24.397369 http.c:871              <= Recv header: pragma: no-cache
+13:56:24.397375 http.c:859              <= Recv header, 0000000053 bytes (0x00000035)
+13:56:24.397378 http.c:871              <= Recv header: Cache-Control: no-cache, max-age=0, must-revalidate
+13:56:24.397380 http.c:859              <= Recv header, 0000000023 bytes (0x00000017)
+13:56:24.397382 http.c:871              <= Recv header: Vary: Accept-Encoding
+13:56:24.397384 http.c:859              <= Recv header, 0000000045 bytes (0x0000002d)
+13:56:24.397386 http.c:871              <= Recv header: Strict-Transport-Security: max-age=31536000
+13:56:24.397403 http.c:859              <= Recv header, 0000000028 bytes (0x0000001c)
+13:56:24.397406 http.c:871              <= Recv header: Transfer-Encoding: chunked
+13:56:24.397409 http.c:859              <= Recv header, 0000000037 bytes (0x00000025)
+13:56:24.397410 http.c:871              <= Recv header: Date: Tue, 27 Oct 2026 12:56:24 GMT
+13:56:24.397413 http.c:859              <= Recv header, 0000000023 bytes (0x00000017)
+13:56:24.397415 http.c:871              <= Recv header: X-Frame-Options: DENY
+13:56:24.397417 http.c:859              <= Recv header, 0000000059 bytes (0x0000003b)
+13:56:24.397419 http.c:871              <= Recv header: X-GitHub-Request-Id: 8E79:3FC81C:3FFF8DC:53BD7B3:6AE09F77
+13:56:24.397428 http.c:859              <= Recv header, 0000000027 bytes (0x0000001b)
+13:56:24.397430 http.c:871              <= Recv header: x-github-edge-region: fra
+13:56:24.397433 http.c:859              <= Recv header, 0000000002 bytes (0x00000002)
+13:56:24.397434 http.c:871              <= Recv header:
+13:56:24.397476 http.c:912              == Info: Connection #0 to host github.com left intact
+13:56:24.397519 run-command.c:672       trace: run_command: 'git credential-osxkeychain store'
+13:56:24.397537 run-command.c:764       trace: start_command: /bin/sh -c 'git credential-osxkeychain store' 'git credential-osxkeychain store'
+13:56:24.416570 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/libexec/git-core/git
+13:56:24.417442 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/libexec/git-core
+13:56:24.418185 git.c:809               trace: exec: git-credential-osxkeychain store
+13:56:24.418200 run-command.c:672       trace: run_command: git-credential-osxkeychain store
+13:56:24.418248 run-command.c:764       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git-credential-osxkeychain store
+13:56:24.427059 pkt-line.c:85           packet:          git< # service=git-receive-pack
+13:56:24.427104 pkt-line.c:85           packet:          git< 0000
+13:56:24.427109 pkt-line.c:85           packet:          git< ff4f4b01c28cd844b9c953e26ee00b4b5e83cf4a refs/heads/main\0report-status report-status-v2 delete-refs side-band-64k ofs-delta atomic object-format=sha1 quiet agent=github/spokes-receive-pack-e4370f9f35d48a7581fd447f188ab573955fe23f session-id=8E79:3FC81C:3FFF8DC:53BD7B3:6AE09F77 push-options
+13:56:24.427125 pkt-line.c:85           packet:          git< 0000
+13:56:24.428830 pkt-line.c:85           packet:          git> refs/heads/main:refs/heads/main
+13:56:24.428840 pkt-line.c:85           packet:          git> 0000
+13:56:24.428857 run-command.c:672       trace: run_command: git send-pack --stateless-rpc --helper-status --thin --verbose --progress https://github.com/ZzelakS/CalaryBeauty.git/ --stdin
+13:56:24.428904 run-command.c:764       trace: start_command: /Library/Developer/CommandLineTools/usr/libexec/git-core/git send-pack --stateless-rpc --helper-status --thin --verbose --progress https://github.com/ZzelakS/CalaryBeauty.git/ --stdin
+13:56:24.435773 exec-cmd.c:145          trace: resolved executable path from Darwin stack: /Library/Developer/CommandLineTools/usr/libexec/git-core/git
+13:56:24.436552 exec-cmd.c:267          trace: resolved executable dir: /Library/Developer/CommandLineTools/usr/libexec/git-core
+13:56:24.437289 git.c:502               trace: built-in: git send-pack --stateless-rpc --helper-status --thin --verbose --progress https://github.com/ZzelakS/CalaryBeauty.git/ --stdin
+13:56:24.437449 pkt-line.c:85           packet:          git< refs/heads/main:refs/heads/main
+13:56:24.437454 pkt-line.c:85           packet:          git< 0000
+13:56:24.437458 pkt-line.c:85           packet:          git< ff4f4b01c28cd844b9c953e26ee00b4b5e83cf4a refs/heads/main\0report-status report-status-v2 delete-refs side-band-64k ofs-delta atomic object-format=sha1 quiet agent=github/spokes-receive-pack-e4370f9f35d48a7581fd447f188ab573955fe23f session-id=8E79:3FC81C:3FFF8DC:53BD7B3:6AE09F77 push-options
+13:56:24.437465 pkt-line.c:85           packet:          git< 0000
+13:56:24.438463 pkt-line.c:85           packet:          git> 0000
+13:56:24.438485 pkt-line.c:85           packet:          git< 0000
+To https://github.com/ZzelakS/CalaryBeauty.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/ZzelakS/CalaryBeauty.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.

@@ -1,0 +1,1 @@
+{"private":true,"type":"module","scripts":{"test":"vitest run --config vitest.config.ts"},"devDependencies":{"@edge-runtime/vm":"latest","@types/react-test-renderer":"^18.3.1","convex-test":"latest","react-test-renderer":"^18.3.1","vite":"latest","vitest":"latest"}}
